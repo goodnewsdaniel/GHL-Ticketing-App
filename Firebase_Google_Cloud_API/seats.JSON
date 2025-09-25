@@ -1,0 +1,74 @@
+{
+  "seats": {
+    "table-1": {
+      "id": "table-1",
+      "status": "available",
+      "productId": "prod_001",
+      "productDetails": {
+        "name": "VIP Table 1",
+        "description": "Premium VIP Table near the stage",
+        "price": 500.00,
+        "category": "VIP"
+      },
+      "location": "Near Stage",
+      "reservationTimestamp": null,
+      "reservationExpiry": null
+    },
+    "table-2": {
+      "id": "table-2",
+      "status": "available",
+      "productId": "prod_002",
+      "productDetails": {
+        "name": "VIP Table 2",
+        "description": "Premium VIP Table with center view",
+        "price": 500.00,
+        "category": "VIP"
+      },
+      "location": "Center",
+      "reservationTimestamp": null,
+      "reservationExpiry": null
+    },
+    "table-3": {
+      "id": "table-3",
+      "status": "available",
+      "productId": "prod_003",
+      "productDetails": {
+        "name": "Regular Table 1",
+        "description": "Standard table with good view",
+        "price": 300.00,
+        "category": "Regular"
+      },
+      "location": "Mid-section",
+      "reservationTimestamp": null,
+      "reservationExpiry": null
+    },
+    "table-4": {
+      "id": "table-4",
+      "status": "available",
+      "productId": "prod_004",
+      "productDetails": {
+        "name": "Regular Table 2",
+        "description": "Standard table with side view",
+        "price": 300.00,
+        "category": "Regular"
+      },
+      "location": "Side section",
+      "reservationTimestamp": null,
+      "reservationExpiry": null
+    },
+    "table-5": {
+      "id": "table-5",
+      "status": "available",
+      "productId": "prod_005",
+      "productDetails": {
+        "name": "Regular Table 3",
+        "description": "Standard table with rear view",
+        "price": 250.00,
+        "category": "Regular"
+      },
+      "location": "Rear section",
+      "reservationTimestamp": null,
+      "reservationExpiry": null
+    }
+  }
+}
