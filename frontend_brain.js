@@ -1,14 +1,14 @@
-import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
 
+import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
+//document.addEventListener('DOMContentLoaded', () => {
+  // Configuration Section  
   // --- START: CONFIGURATION ---
-
-  /* 1. PASTE YOUR SUPABASE URL and ANON KEY (from Step 1) */
+  // 1. PASTE YOUR SUPABASE URL and ANON KEY (from Step 1)
   const SUPABASE_URL = 'https://gtxgnbrjfodzjgmfusro.supabase.co'; 
 
-  const SUPABASE_ANON_KEY = ' eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd0eGduYnJqZm9kempnbWZ1c3JvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTg4MjQ4NTIsImV4cCI6MjA3NDQwMDg1Mn0.wnXjxbh3aBUmjb0AGWonNkYBkwdDjPEm4tNcJhiIwrQ';
+  const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd0eGduYnJqZm9kempnbWZ1c3JvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTg4MjQ4NTIsImV4cCI6MjA3NDQwMDg1Mn0.wnXjxbh3aBUmjb0AGWonNkYBkwdDjPEm4tNcJhiIwrQ';
 
-  /* 2. MAP YOUR SEAT IDs TO YOUR GOHIGHLEVEL PRODUCT IDs */
-
+  // 2. MAP YOUR SEAT IDs TO YOUR GOHIGHLEVEL PRODUCT IDs
   const seatProductMapping = {
     'table-1': '68d2bf1de7fabb022d742289', // Replace with actual Product ID
     'table-2': '68d2bf2b9ea7b17aca2040f9',    // Replace with actual Product ID
@@ -16,8 +16,6 @@ import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js
     'table-4': '68d2bf4795fa2d64a333f3da',    // Replace with actual Product ID
     'table-5': '68d2bf51e7fabb5d5e7422ba',    // Replace with actual Product ID
   };
-
-
 
   // 3. RESERVATION TIME (in minutes)
   const RESERVATION_MINUTES = 15;
@@ -87,23 +85,26 @@ import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js
   // The only change needed is how reserveSeat and releaseSeat update the database.
 
   async function reserveSeat(seatId) {
-      /* In Supabase, we can't do a "transaction" from the front-end. We'll use a serverless Edge Function for this to do it atomically and prevent race conditions.
-      This is a more advanced topic. For simplicity here, we'll do a direct update. A user might be able to reserve a seat that was taken milliseconds before. A proper solution would use an RPC call to a Postgres function. */
+      try {
+          // Call the PostgreSQL function through RPC
+          const { data, error } = await supabase.rpc('try_reserve_seat', {
+              seat_id: seatId,
+              reservation_minutes: RESERVATION_MINUTES
+          });
 
-      const { data, error } = await supabase
-          .from('seats')
-          .update({ status: 'reserved' })
-          .eq('name', seatId)
-          .eq('status', 'available') // Only update if it's currently available
-          .select();
+          if (error) throw error;
 
-      if (error || data.length === 0) {
-          alert('Sorry, this seat was just taken! Please select another.');
-      } else {
-          localReservation.seatId = seatId;
-          document.getElementById(seatId)?.classList.add('selected');
-          selectGHLProduct(seatId, true);
-          startTimer();
+          if (data.success) {
+              localReservation.seatId = seatId;
+              document.getElementById(seatId)?.classList.add('selected');
+              selectGHLProduct(seatId, true);
+              startTimer();
+          } else {
+              alert('Sorry, this seat is not available. Please select another.');
+          }
+      } catch (error) {
+          console.error('Reservation error:', error);
+          alert('There was an error processing your reservation. Please try again.');
       }
   }
 
@@ -161,3 +162,4 @@ import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js
   // Initialize the map
   fetchInitialSeats();
   listenToSeatChanges();
+//});

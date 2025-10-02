@@ -25,44 +25,16 @@ PROJECT URL:
 https://gtxgnbrjfodzjgmfusro.supabase.co
 
 
+THE ADMIN KEY (SECRET 1):
+
+________SERVICE ROLE KEY_________
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd0eGduYnJqZm9kempnbWZ1c3JvIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc1ODgyNDg1MiwiZXhwIjoyMDc0NDAwODUyfQ.RTQZ4wurr4-gp-0CNKNzHW3cocNox5y-EA8lhnE0FeA
 
 
+THE GHL WEBHOOK SECRET (SECRET 2):
+GhleM0H_BdOO9B93rs3wF-VzTjr_teGKvY3GZ89iwd5lK0RV2Rbw6982vetQS1jMilGFZLzLkLwyZlX6RtRXdQ==
+
+Confirm-Purchase Webhook:
+https://gtxgnbrjfodzjgmfusro.supabase.co/functions/v1/confirm-purchase
 
 
-
-
-
-
-
-
-
-
-
-
-________FIREBASE CONFIGURATIONS FOR REAL PROMO__________:
-
-/* Import the functions you need from the SDKs you need */
-
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
-
-/* Your web app's Firebase Configuration */
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
-
-const firebaseConfig = {
-  apiKey: "AIzaSyA8j37uz9sZZp3rHYK8gMVt8dcPOcEVOfI",
-  authDomain: "realpromo-9d702.firebaseapp.com",
-  databaseURL: "https://realpromo-9d702-default-rtdb.firebaseio.com",
-  projectId: "realpromo-9d702",
-  storageBucket: "realpromo-9d702.firebasestorage.app",
-  messagingSenderId: "667985871365",
-  appId: "1:667985871365:web:bc3cda255cf28534e3526c",
-  measurementId: "G-98L1WPYCC0"
-};
-
-/* Initialize Firebase */
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
